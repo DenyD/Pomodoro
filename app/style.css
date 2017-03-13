@@ -1,0 +1,35 @@
+body{
+  margin-top: 90px;
+  background-image: url("http://s6.ifotos.pl/img/clockwork_asxaxrr.jpg");
+  background-size:100%;
+  color: white;
+  font-family: 'Bungee Inline';
+  font-size: 15px;
+}
+.set{
+  margin-top:30px;
+  display:flex;
+  justify-content:center;
+}
+.time{
+    color: rebeccapurple;
+}
+h1, h2{
+    font-size:300%;
+  margin:35px;
+  font-family:"Paytone One";
+}
+h3{
+  display:inline;
+  color:darkgoldenrod;
+}
+.btn{ 
+  margin:15px;
+  color:yellow;
+  font-size:2em;
+}
+#num, #breakNum{
+    color:white;
+}
+#timing, #breaking{
+color: orangered;}
