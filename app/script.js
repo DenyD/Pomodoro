@@ -1,89 +1,98 @@
 $(document).ready(function(){
-  var count = parseInt($("#num").html());
-  var breakTime = parseInt($("#breakNum").html());
-  console.log(count);
+  var timeCount = parseInt($("#num").html());
+  var breakTimeCount = parseInt($("#breakNum").html());
+  var startButton = $("#start");
+  var resetButton =  $("#reset");
+  var sessionTime = $('#timing');
+  var sessionValue = $('#num');
+  var breakTime = $('#break');
+  var breakValue = $('#breakNum');
   
-  $("#reset").hide();
+  console.log(timeCount);
   
-$("#start").click(function(){
-    var counter= setInterval(timer,1000);
-    count*=60;
-    breakTime*=60;
+  resetButton.hide();
+  
+  startButton.click(function(){
+      var counter= setInterval(timer, 1000);
+      timeCount *= 60;
+      breakTimeCount *= 60;
 
-    function timer(){
-        $('#start, #minus1, #plus1, #breakNum, #minus1Break, #plus1Break, #top1').hide();
-        $('#timing').html("Session Time:");
-        count-=1;
-        if (count===0){
-            clearInterval(counter);
-            var startBreak=setInterval(breakTimer,1000);
-            $('#num').hide();
-            $('#timing').hide();
-        }
-        if (count%60>=10){
-            $('#num').html(Math.floor(count/60)+":"+count%60);
-        }else{
-            $('#num').html(Math.floor(count/60)+":"+"0"+count%60);
+      function timer(){
+          $('#start, #minus1, #plus1, #breakNum, #minus1Break, #plus1Break, #top1').hide();
+          sessionTime.html("Session Time:");
+          timeCount -=1;
+          if (timeCount === 0){
+              clearInterval(counter);
+              var startBreak = setInterval(breakTimer, 1000);
+              sessionValue.hide();
+              sessionTime.hide();
+          }
+          if (timeCount % 60 >= 10){
+              sessionValue.html(Math.floor(timeCount / 60) + ":" + timeCount % 60);
+          }else{
+              sessionValue.html(Math.floor(timeCount / 60) + ":" + "0" + timeCount % 60);
 
-        }
+          }
+            
         
-    
-    function breakTimer(){
-       
-      $('#breaking').html("Break Time:");
-      $('#breakNum, #breaking').show();
-      
-      breakTime-=1;
-      if (breakTime===0){
-          clearInterval(startBreak);
-          $('#breakNum').hide();
-          $('#breaking').hide();
-          $('#reset').show();
+          function breakTimer(){
+            
+          breakTime.html("Break Time:");
+          breakValue.show();
+          breakTime.show();
+            
+          breakTimeCount -= 1;
+          if (breakTimeCount === 0){
+              clearInterval(startBreak);
+              breakValue.hide();
+              breakTime.hide();
+              resetButton.show();
+          }
+          if (breakTimeCount % 60 >= 10){
+                  breakValue.html(Math.floor(breakTimeCount / 60) + ":" + breakTimeCount % 60);
+              }else{
+                  breakValue.html(Math.floor(breakTimeCount / 60) + ":" + "0" + breakTimeCount % 60);
+                  }
+          }
       }
-      if (breakTime%60>=10){
-            $('#breakNum').html(Math.floor(breakTime/60)+":"+breakTime%60);
-        }else{
-            $('#breakNum').html(Math.floor(breakTime/60)+":"+"0"+breakTime%60);
- }
-}
-    }
-});
-
-$('#reset').click(function(){
-    count=15;
-    breakTime=5;
-    $('#reset').hide();
-    $('#num').html(count);
-    $('#breakNum').html(breakTime);
-    $('#start, #num, #minus1, #plus1, #breakNum, #minus1Break, #plus1Break, #top1').show();
-    
-});
-
-  
-  $("#minus1").click(function(){
-      if (count>1){
-    count-=1;
-    $('#num').html(count);
-    console.log(count);
-      }
-    });
-  $("#plus1").click(function(){
-    count+=1;
-    $('#num').html(count);
-    console.log(count);
-    });
-  $("#minus1Break").click(function(){
-      if(breakTime>1){
-    breakTime-=1;
-    $('#breakNum').html(breakTime);
-    console.log(breakTime);
-      }
-    });
-  $("#plus1Break").click(function(){
-    breakTime+=1;
-    $('#breakNum').html(breakTime);
-    console.log(breakTime);
   });
-  
+
+  resetButton.click(function(){
+        timeCount = 15;
+        breakTimeCount = 5;
+        sessionValue.html(timeCount);
+        breakValue.html(breakTimeCount);      
+        resetButton.hide();      
+        $('#start, #num, #minus1, #plus1, #breakNum, #minus1Break, #plus1Break, #top1').show();
+           
+        
+  });
+
+  $('a').on('click', function(){
+      if (this.id === 'minus1'){
+          if (timeCount > 1){
+            timeCount -= 1;
+            sessionValue.html(timeCount);
+            console.log(timeCount);
+          }            
+      }
+      else if (this.id === 'plus1'){
+            timeCount += 1;
+            sessionValue.html(timeCount);
+            console.log(timeCount);
+      }     
+      else if (this.id === 'minus1Break'){
+          if (breakTimeCount > 1){
+              breakTimeCount -= 1;
+              breakValue.html(breakTimeCount);
+              console.log(breakTimeCount);
+          }
+      }
+      else if (this.id === 'plus1Break'){
+            breakTimeCount += 1;
+            breakValue.html(breakTimeCount);
+            console.log(breakTimeCount);          
+      }
+  });
   
 });
