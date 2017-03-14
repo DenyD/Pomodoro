@@ -1,93 +1,105 @@
 $(document).ready(function(){
-  var nr = #num;
-  var bNr = #breakNum;
-  var br = breaking;
-  var tm = timing;
-  var count = parseInt($("nr").html());
-  var c = count;
-  var breakTime = parseInt($("bNr").html());
-  var bT = breakTime;
-  console.log(count);
+  var timeCount = parseInt($("#num").html());
+  var breakTimeCount = parseInt($("#breakNum").html());
+  var startButton = $("#start");
+  var resetButton =  $("#reset");
+  var sessionTime = $('#timing');
+  var sessionValue = $('#num');
+  var breakTime = $('#break');
+  var breakValue = $('#breakNum');
   
-  $("#reset").hide();
+  console.log(timeCount);
   
-  $("#start").click(function(){
-    var counter = setInterval(timer, 1000);
-    c *= 60;
-    bT *= 60;
+  resetButton.hide();
+  
+  startButton.click(function(){
+      var counter= setInterval(timer, 1000);
+      timeCount *= 60;
+      breakTimeCount *= 60;
 
-    function timer(){
-        $('#start, #minus1, #plus1, "bNr", #minus1Break, #plus1Break, #top1').hide();
-        $('tm').html("Session Time:");
-        c -= 1;
-        if (c === 0){
-            clearInterval(counter);
-            var startBreak=setInterval(breakTimer, 1000);
-            $('nr, tm').hide();
-        }
-        if (c % 60 >= 10){
-            $('nr').html(Math.floor(c / 60) + ":" + c % 60);
-        }else{
-            $('nr').html(Math.floor(c / 60) + ":" + "0" + c % 60);
+      function timer(){
+          $('#start, #minus1, #plus1, #breakNum, #minus1Break, #plus1Break, #top1').hide();
+          sessionTime.html("Session Time:");
+          timeCount -=1;
+          if (timeCount === 0){
+              clearInterval(counter);
+              var startBreak = setInterval(breakTimer, 1000);
+              sessionValue.hide();
+              sessionTime.hide();
+          }
+          if (timeCount % 60 >= 10){
+              sessionValue.html(Math.floor(timeCount / 60) + ":" + timeCount % 60);
+          }else{
+              sessionValue.html(Math.floor(timeCount / 60) + ":" + "0" + timeCount % 60);
 
-        }
+          }
+            
         
-    
-    function breakTimer(){
-       
-      $('br').html("Break Time:");
-      $('bNr, br').show();
-      
-      bT -= 1;
-      if (bT === 0){
-          clearInterval(startBreak);
-          $('bNr, br').hide();
-          $('#reset').show();
+          function breakTimer(){
+            
+          breakTime.html("Break Time:");
+          breakValue.show();
+          breakTime.show();
+            
+          breakTimeCount -= 1;
+          if (breakTimeCount === 0){
+              clearInterval(startBreak);
+              breakValue.hide();
+              breakTime.hide();
+              resetButton.show();
+          }
+          if (breakTimeCount % 60 >= 10){
+                  breakValue.html(Math.floor(breakTimeCount / 60) + ":" + breakTimeCount % 60);
+              }else{
+                  breakValue.html(Math.floor(breakTimeCount / 60) + ":" + "0" + breakTimeCount % 60);
+                  }
+          }
       }
-      if (bT % 60 >= 10){
-            $('bNr').html(Math.floor(bT / 60) + ":" + bT % 60);
-        }else{
-            $('bNr').html(Math.floor(bT / 60) + ":" + "0" + bT % 60);
-             }
-      }
-    }
-});
+  });
 
-$('#reset').click(function(){
-    c = 15;
-    bT = 5;
-    $('#reset').hide();
-    $('nr').html(c);
-    $('bNr').html(bT);
-    $('#start, nr, #minus1, #plus1, bNr, #minus1Break, #plus1Break, #top1').show();
-    
-});
+  resetButton.click(function(){
+      function setValue(){
+        timeCount = 15;
+        breakTimeCount = 5;
+      }
+      function showValue(){
+        sessionValue.html(timeCount);
+        breakValue.html(breakTimeCount);
+      }
+      function hide(){
+        resetButton.hide();
+      }
+      function show(){
+        $('#start, #num, #minus1, #plus1, #breakNum, #minus1Break, #plus1Break, #top1').show();
+      }      
+        
+  });
 
-  
-  $("#minus1").click(function(){
-      if (count > 1){
-    count -= 1;
-    $('nr').html(count);
-    console.log(count);
+  $('a').on('click', function(){
+      if (this.id === 'minus1'){
+          if (timeCount > 1){
+            timeCount -= 1;
+            sessionValue.html(timeCount);
+            console.log(timeCount);
+          }            
+      }
+      else if (this.id === 'plus1'){
+            timeCount += 1;
+            sessionValue.html(timeCount);
+            console.log(timeCount);
+      }     
+      else if (this.id === 'minus1Break'){
+          if (breakTimeCount > 1){
+              breakTimeCount -= 1;
+              breakValue.html(breakTimeCount);
+              console.log(breakTimeCount);
+          }
+      }
+      else if (this.id === 'plus1Break'){
+            breakTimeCount += 1;
+            breakValue.html(breakTimeCount);
+            console.log(breakTimeCount);          
       }
   });
-  $("#plus1").click(function(){
-    count += 1;
-    $('nr').html(count);
-    console.log(count);
-  });
-  $("#minus1Break").click(function(){
-      if(breakTime > 1){
-    breakTime -= 1;
-    $('bNr').html(breakTime);
-    console.log(breakTime);
-      }
-  });
-  $("#plus1Break").click(function(){
-    breakTime += 1;
-    $('bNr').html(breakTime);
-    console.log(breakTime);
-  });
-  
   
 });
