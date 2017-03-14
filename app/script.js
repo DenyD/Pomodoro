@@ -58,48 +58,41 @@ $(document).ready(function(){
   });
 
   resetButton.click(function(){
-      function setValue(){
         timeCount = 15;
         breakTimeCount = 5;
-      }
-      function showValue(){
         sessionValue.html(timeCount);
         breakValue.html(breakTimeCount);
-      }
-      function hide(){
-        resetButton.hide();
-      }
-      function show(){
+        resetButton.hide();      
         $('#start, #num, #minus1, #plus1, #breakNum, #minus1Break, #plus1Break, #top1').show();
-      }      
-        
+             
   });
 
-  $('a').on('click', function(){
-      if (this.id === 'minus1'){
-          if (timeCount > 1){
-            timeCount -= 1;
-            sessionValue.html(timeCount);
-            console.log(timeCount);
-          }            
-      }
-      else if (this.id === 'plus1'){
-            timeCount += 1;
-            sessionValue.html(timeCount);
-            console.log(timeCount);
-      }     
-      else if (this.id === 'minus1Break'){
-          if (breakTimeCount > 1){
-              breakTimeCount -= 1;
-              breakValue.html(breakTimeCount);
-              console.log(breakTimeCount);
-          }
-      }
-      else if (this.id === 'plus1Break'){
-            breakTimeCount += 1;
-            breakValue.html(breakTimeCount);
-            console.log(breakTimeCount);          
-      }
+  $("#minus1").click(function() {
+      handleClick(timeCount, sessionValue, false);
   });
+
+  $("#plus1").click(function() {
+    handleClick(timeCount, sessionValue, true);
+  });
+
+  $("#minus1Break").click(function(){
+    handleClick(breakTimeCount, breakValue, false);
+  });
+
+  $("#plus1Break").click(function() {
+    handleClick(breakTimeCount, breakValue, true);
+  });
+  
+  
+  function handleClick(variable, element, isAddition) {
+      if (!isAddition) {
+          if (variable > 1) {
+              variable -= 1;
+          }
+      } else {
+          variable += 1;
+      }
+      $(element).html(variable);
+  }
   
 });
